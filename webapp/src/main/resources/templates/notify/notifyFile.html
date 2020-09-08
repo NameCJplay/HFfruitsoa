@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: css"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+	<div class="col-sm-12">
+		<div class="ibox">
+			<div class="ibox-body">
+				<div class="fixed-table-toolbar">
+					<div class="columns pull-left">
+						<button type="button" class="btn  btn-primary" onclick="add()">
+							<i class="fa fa-plus" aria-hidden="true"></i>添加
+						</button>
+						<button  type="button" class="btn  btn-success"
+								 onclick="save()">
+							<i class="fa fa-edit" aria-hidden="true"></i>保存
+						</button>
+						<button  type="button" class="btn  btn-danger"
+								 onclick="add()">
+							<i class="fa fa-file" aria-hidden="true"></i>重选
+						</button>
+					</div>
+				</div>
+				<br><br><br><br>
+				<h1>文件列表</h1>
+				<form class="form-horizontal m-t" id="signupForm">
+					<div hidden="true">
+						<input name="hfFiles" id="hfFiles" type="file" multiple >
+						<input name="fileNotifyId" id="fileNotifyId" type="hidden" />
+					</div>
+					<div id="Saved">
+<!--											<p style="margin-top: 25px">-->
+<!--												<i style="font-size: 30px" class="mdi mdi-emoticon-happy" title="已保存"></i>-->
+<!--												<span class="label label-success" style="padding:10px;font-size: 20px;cursor: pointer" onclick="preview()" title="点击预览">-->
+<!--													关于.docx-->
+<!--												</span>-->
+<!--													<button class="btn btn-w-md btn-round btn-secondary" type="button"  onclick="remove(id)">删除</button>-->
+<!--											</p>-->
+
+					</div>
+
+
+
+					<div id="unsave">
+						<!--						<p style="margin-top: 25px">-->
+						<!--							<i style="font-size: 30px"  class="mdi mdi-emoticon-sad" title="未保存"></i>-->
+						<!--							<span class="label label-danger" style="padding:10px;font-size: 20px;cursor: pointer" title="点击预览">-->
+						<!--							关于.docx-->
+						<!--						</span>-->
+						<!--						</p>-->
+					</div>
+
+				</form>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div th:include="include :: footer"></div>
+<script type="text/javascript" src="/webapp/js/notify/notifyFile.js"></script>
+<script>
+	var notifyId = '[[${notifyId}]]';
+	load(notifyId)
+</script>
+</body>
+
+</html>

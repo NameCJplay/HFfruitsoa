@@ -1,0 +1,84 @@
+hf:
+  CookieName: FruitsOAToken
+server:
+  port: 8080
+spring:
+  application:
+    name: zuul
+    http:
+      encoding:
+        enabled: true
+        charset: UTF-8
+        force: true
+    security:
+      user:
+        name: admin
+        password: 111111
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 5MB    # 设置最大的请求文件的大小
+      max-file-size: 5MB    # 设置单个文件的最大长度
+hystrix:
+  metrics:
+    enabled: true
+ribbon:
+  eureka:
+    enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    sensitive-headers: "Cookie"
+    connect-timeout-millis: 60000
+  routes:
+    #实体类工具包服务
+#    domain:
+#      path: /domain/**
+#      url: http://127.0.0.1:8090/domain/
+      # 消息公告路由
+    notify:
+      path: /notify/**
+      url: http://127.0.0.1:8089/notify/
+      # 消息公告的附件
+    notifyFile:
+      path: /notifyFile/**
+      url: http://127.0.0.1:8089/notifyFile/
+      # web页面
+    webapp:
+      path: /**
+      url: http://127.0.0.1:8087/webapp/
+      #(持久层接口)路由
+    dao:
+      path: /dao/**
+      url: http://127.0.0.1:8086/dao/
+    #fruits(水果服务)路由
+    fruits:
+      path: /fruits/**
+      url: http://127.0.0.1:8085/fruits/
+    # classify(水果分类服务)路由
+    classify:
+      path: /classify/**
+      url: http://127.0.0.1:8084/classify/
+    # user(用户服务)路由
+    user:
+      path: /user/**
+      url: http://127.0.0.1:8083/user/
+    # dept(部门服务)路由
+    dept:
+      path: /dept/**
+      url: http://127.0.0.1:8082/dept/
+    # orders(订单服务)路由
+    orders:
+      path: /orders/**
+      url: http://127.0.0.1:8081/orders/
+    # ordersDetails订单详情
+    ordersDetails:
+      path: /ordersDetails/**
+      url: http://127.0.0.1:8081/ordersDetails/
+

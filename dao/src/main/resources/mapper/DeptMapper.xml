@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hf.dao.Dao.DeptDao">
+
+      <resultMap id="DeptDOMap" type="com.hf.domain.Domain.Dept.DeptDO">
+      
+    </resultMap>
+
+
+	<select id="get" resultType="com.hf.domain.Domain.Dept.DeptDO"  resultMap="DeptDOMap">
+		select `dept_id`,`dept_parentid`,`dept_name`,`dept_address` from hf_dept where dept_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.hf.domain.Domain.Dept.DeptDO" resultMap="DeptDOMap">
+		select `dept_id`,`dept_parentid`,`dept_name`,`dept_address` from hf_dept
+        <where>  
+		  		  <if test="deptId != null"> and  dept_id = #{deptId}  </if>
+		  		  <if test="deptParentid != null"> and  dept_parentid = #{deptParentid}  </if>
+		  		  <if test="deptName != null and deptName != ''"> and  dept_name like  CONCAT('%',#{deptName},'%')   </if>
+		  		  <if test="deptAddress != null and deptAddress != ''"> and  dept_address like  CONCAT('%',#{deptAddress},'%')   </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by dept_id
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from hf_dept
+		 <where>  
+		  		  <if test="deptId != null"> and  dept_id = #{deptId}  </if>
+		  		  <if test="deptParentid != null"> and  dept_parentid = #{deptParentid}  </if>
+		  		  <if test="deptName != null and deptName != ''"> and  dept_name like  CONCAT('%',#{deptName},'%')   </if>
+		  		  <if test="deptAddress != null and deptAddress != ''"> and  dept_address like  CONCAT('%',#{deptAddress},'%')   </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.hf.domain.Domain.Dept.DeptDO" useGeneratedKeys="true" keyProperty="deptId">
+		insert into hf_dept
+		(
+			`dept_parentid`, 
+			`dept_name`, 
+			`dept_address`
+		)
+		values
+		(
+			#{deptParentid}, 
+			#{deptName}, 
+			#{deptAddress}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hf.domain.Domain.Dept.DeptDO">
+		update hf_dept 
+		<set>
+		<if test="deptParentid != null">	`dept_parentid` = #{deptParentid},  </if>
+		<if test="deptName != null">	`dept_name` = #{deptName},  </if>
+		<if test="deptAddress != null">	`dept_address` = #{deptAddress} </if>
+		</set>
+		where dept_id = #{deptId}
+	</update>
+	
+	<delete id="remove">
+		delete from hf_dept where dept_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from hf_dept where dept_id in 
+		<foreach item="deptId" collection="array" open="(" separator="," close=")">
+			#{deptId}
+		</foreach>
+	</delete>
+
+</mapper>

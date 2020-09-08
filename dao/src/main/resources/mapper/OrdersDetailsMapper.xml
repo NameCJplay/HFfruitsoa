@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hf.dao.Dao.OrdersDetailsDao">
+
+	<select id="get" resultType="com.hf.domain.Domain.Orders.OrdersDetailsDO">
+		select `details_id`,`details_ordersnumber`,`details_fruitsid`,`details_fruitsname`,`details_count`,`details_price`,`details_gross`,`details_discount`,`details_dcprice`,`details_cprice`,`details_profit` from hf_orders_details where details_id = #{value}
+	</select>
+
+	<select id="getbyoid" resultType="com.hf.domain.Domain.Orders.OrdersDetailsDO">
+		select `details_id`,`details_ordersnumber`,`details_fruitsid`,`details_fruitsname`,`details_count`,`details_price`,`details_gross`,`details_discount`,`details_dcprice`,`details_cprice`,`details_profit` from hf_orders_details where details_ordersnumber = #{detailsOrdersnumber}
+	</select>
+
+
+	<select id="list" resultType="com.hf.domain.Domain.Orders.OrdersDetailsDO">
+		select `details_id`,`details_ordersnumber`,`details_fruitsid`,`details_fruitsname`,`details_count`,`details_price`,`details_gross`,`details_discount`,`details_dcprice`,`details_cprice`,`details_profit` from hf_orders_details
+        <where>  
+		  		  <if test="detailsId != null and detailsId != ''"> and details_id = #{detailsId} </if>
+		  		  <if test="detailsOrdersnumber != null and detailsOrdersnumber != ''"> and details_ordersnumber = #{detailsOrdersnumber} </if>
+		  		  <if test="detailsFruitsid != null and detailsFruitsid != ''"> and details_fruitsid = #{detailsFruitsid} </if>
+		  		  <if test="detailsFruitsname != null and detailsFruitsname != ''"> and details_fruitsname = #{detailsFruitsname} </if>
+		  		  <if test="detailsCount != null and detailsCount != ''"> and details_count = #{detailsCount} </if>
+		  		  <if test="detailsPrice != null and detailsPrice != ''"> and details_price = #{detailsPrice} </if>
+		  		  <if test="detailsGross != null and detailsGross != ''"> and details_gross = #{detailsGross} </if>
+		  		  <if test="detailsDiscount != null and detailsDiscount != ''"> and details_discount = #{detailsDiscount} </if>
+		  		  <if test="detailsDcprice != null and detailsDcprice != ''"> and details_dcprice = #{detailsDcprice} </if>
+		  		  <if test="detailsCprice != null and detailsCprice != ''"> and details_cprice = #{detailsCprice} </if>
+		  		  <if test="detailsProfit != null and detailsProfit != ''"> and details_profit = #{detailsProfit} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by details_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from hf_orders_details
+		 <where>  
+		  		  <if test="detailsId != null and detailsId != ''"> and details_id = #{detailsId} </if>
+		  		  <if test="detailsOrdersnumber != null and detailsOrdersnumber != ''"> and details_ordersnumber = #{detailsOrdersnumber} </if>
+		  		  <if test="detailsFruitsid != null and detailsFruitsid != ''"> and details_fruitsid = #{detailsFruitsid} </if>
+		  		  <if test="detailsFruitsname != null and detailsFruitsname != ''"> and details_fruitsname = #{detailsFruitsname} </if>
+		  		  <if test="detailsCount != null and detailsCount != ''"> and details_count = #{detailsCount} </if>
+		  		  <if test="detailsPrice != null and detailsPrice != ''"> and details_price = #{detailsPrice} </if>
+		  		  <if test="detailsGross != null and detailsGross != ''"> and details_gross = #{detailsGross} </if>
+		  		  <if test="detailsDiscount != null and detailsDiscount != ''"> and details_discount = #{detailsDiscount} </if>
+		  		  <if test="detailsDcprice != null and detailsDcprice != ''"> and details_dcprice = #{detailsDcprice} </if>
+		  		  <if test="detailsCprice != null and detailsCprice != ''"> and details_cprice = #{detailsCprice} </if>
+		  		  <if test="detailsProfit != null and detailsProfit != ''"> and details_profit = #{detailsProfit} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.hf.domain.Domain.Orders.OrdersDetailsDO" useGeneratedKeys="true" keyProperty="detailsId">
+		insert into hf_orders_details
+		(
+			`details_ordersnumber`, 
+			`details_fruitsid`, 
+			`details_fruitsname`, 
+			`details_count`, 
+			`details_price`, 
+			`details_gross`, 
+			`details_discount`, 
+			`details_dcprice`, 
+			`details_cprice`, 
+			`details_profit`
+		)
+		values
+		(
+			#{detailsOrdersnumber}, 
+			#{detailsFruitsid}, 
+			#{detailsFruitsname}, 
+			#{detailsCount}, 
+			#{detailsPrice}, 
+			#{detailsGross}, 
+			#{detailsDiscount}, 
+			#{detailsDcprice}, 
+			#{detailsCprice}, 
+			#{detailsProfit}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hf.domain.Domain.Orders.OrdersDetailsDO">
+		update hf_orders_details 
+		<set>
+			<if test="detailsOrdersnumber != null">`details_ordersnumber` = #{detailsOrdersnumber}, </if>
+			<if test="detailsFruitsid != null">`details_fruitsid` = #{detailsFruitsid}, </if>
+			<if test="detailsFruitsname != null">`details_fruitsname` = #{detailsFruitsname}, </if>
+			<if test="detailsCount != null">`details_count` = #{detailsCount}, </if>
+			<if test="detailsPrice != null">`details_price` = #{detailsPrice}, </if>
+			<if test="detailsGross != null">`details_gross` = #{detailsGross}, </if>
+			<if test="detailsDiscount != null">`details_discount` = #{detailsDiscount}, </if>
+			<if test="detailsDcprice != null">`details_dcprice` = #{detailsDcprice}, </if>
+			<if test="detailsCprice != null">`details_cprice` = #{detailsCprice}, </if>
+			<if test="detailsProfit != null">`details_profit` = #{detailsProfit}</if>
+		</set>
+		where details_id = #{detailsId}
+	</update>
+	
+	<delete id="remove">
+		delete from hf_orders_details where details_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from hf_orders_details where details_id in 
+		<foreach item="detailsId" collection="array" open="(" separator="," close=")">
+			#{detailsId}
+		</foreach>
+	</delete>
+
+</mapper>

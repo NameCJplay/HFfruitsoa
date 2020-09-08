@@ -1,0 +1,15 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: domain
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/
+hystrix:
+  metrics:
+    enabled: true
+ribbon:
+  eureka:
+    enabled: true

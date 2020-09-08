@@ -1,0 +1,20 @@
+hf:
+  FileUrl: D:/框架/毕业项目/kkFileView-2.2.0/file/FruitsImage/
+server:
+  port: 8085
+spring:
+  application:
+    name: fruits
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/
+hystrix:
+  metrics:
+    enabled: true
+feign:
+  httpclient:
+    connection-timeout: 30000
+ribbon:
+  eureka:
+    enabled: true

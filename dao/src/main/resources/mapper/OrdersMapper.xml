@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hf.dao.Dao.OrdersDao">
+
+	<select id="get" resultType="com.hf.domain.Domain.Orders.OrdersDO">
+		select `orders_id`,`orders_number`,`orders_user_id`,`orders_dept_id`,`orders_gross`,`orders_discount`,`orders_dcprice`,`orders_profit`,`orders_create_date`,`orders_maturity_date`,`orders_status` from hf_orders where orders_id = #{value}
+	</select>
+	
+	<select id="list" resultType="com.hf.domain.Domain.Orders.OrdersDO">
+		select `orders_id`,`orders_number`,`orders_user_id`,`orders_dept_id`,`orders_gross`,`orders_discount`,`orders_dcprice`,`orders_profit`,`orders_create_date`,`orders_maturity_date`,`orders_status` from hf_orders
+        <where>  
+		  		  <if test="ordersId != null and ordersId != ''"> and orders_id = #{ordersId} </if>
+		  		  <if test="ordersNumber != null and ordersNumber != ''"> and orders_number = #{ordersNumber} </if>
+		  		  <if test="ordersUserId != null and ordersUserId != ''"> and orders_user_id = #{ordersUserId} </if>
+		  		  <if test="ordersDeptId != null and ordersDeptId != ''"> and orders_dept_id = #{ordersDeptId} </if>
+		  		  <if test="ordersGross != null and ordersGross != ''"> and orders_gross = #{ordersGross} </if>
+		  		  <if test="ordersDiscount != null and ordersDiscount != ''"> and orders_discount = #{ordersDiscount} </if>
+		  		  <if test="ordersDcprice != null and ordersDcprice != ''"> and orders_dcprice = #{ordersDcprice} </if>
+		  		  <if test="ordersProfit != null and ordersProfit != ''"> and orders_profit = #{ordersProfit} </if>
+		  		  <if test="ordersCreateDate != null and ordersCreateDate != ''"> and orders_create_date = #{ordersCreateDate} </if>
+		  		  <if test="ordersMaturityDate != null and ordersMaturityDate != ''"> and orders_maturity_date = #{ordersMaturityDate} </if>
+		  		  <if test="ordersStatus != null and ordersStatus != ''"> and orders_status = #{ordersStatus} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by orders_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+ 	<select id="count" resultType="int">
+		select count(*) from hf_orders
+		 <where>
+		  		  <if test="ordersId != null and ordersId != ''"> and orders_id = #{ordersId} </if>
+		  		  <if test="ordersNumber != null and ordersNumber != ''"> and orders_number = #{ordersNumber} </if>
+		  		  <if test="ordersUserId != null and ordersUserId != ''"> and orders_user_id = #{ordersUserId} </if>
+		  		  <if test="ordersDeptId != null and ordersDeptId != ''"> and orders_dept_id = #{ordersDeptId} </if>
+		  		  <if test="ordersGross != null and ordersGross != ''"> and orders_gross = #{ordersGross} </if>
+		  		  <if test="ordersDiscount != null and ordersDiscount != ''"> and orders_discount = #{ordersDiscount} </if>
+		  		  <if test="ordersDcprice != null and ordersDcprice != ''"> and orders_dcprice = #{ordersDcprice} </if>
+		  		  <if test="ordersProfit != null and ordersProfit != ''"> and orders_profit = #{ordersProfit} </if>
+		  		  <if test="ordersCreateDate != null and ordersCreateDate != ''"> and orders_create_date = #{ordersCreateDate} </if>
+		  		  <if test="ordersMaturityDate != null and ordersMaturityDate != ''"> and orders_maturity_date = #{ordersMaturityDate} </if>
+		  		  <if test="ordersStatus != null and ordersStatus != ''"> and orders_status = #{ordersStatus} </if>
+		  		</where>
+	</select>
+
+	<insert id="save" parameterType="com.hf.domain.Domain.Orders.OrdersDO" useGeneratedKeys="true" keyProperty="ordersId">
+		insert into hf_orders
+		(
+			`orders_number`,
+			`orders_user_id`,
+			`orders_dept_id`,
+			`orders_gross`,
+			`orders_discount`,
+			`orders_dcprice`,
+			`orders_profit`,
+			`orders_create_date`,
+			`orders_maturity_date`,
+			`orders_status`
+		)
+		values
+		(
+			#{ordersNumber},
+			#{ordersUserId},
+			#{ordersDeptId},
+			#{ordersGross},
+			#{ordersDiscount},
+			#{ordersDcprice},
+			#{ordersProfit},
+			#{ordersCreateDate},
+			#{ordersMaturityDate},
+			#{ordersStatus}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.hf.domain.Domain.Orders.OrdersDO">
+		update hf_orders
+		<set>
+			<if test="ordersNumber != null">`orders_number` = #{ordersNumber}, </if>
+			<if test="ordersUserId != null">`orders_user_id` = #{ordersUserId}, </if>
+			<if test="ordersDeptId != null">`orders_dept_id` = #{ordersDeptId}, </if>
+			<if test="ordersGross != null">`orders_gross` = #{ordersGross}, </if>
+			<if test="ordersDiscount != null">`orders_discount` = #{ordersDiscount}, </if>
+			<if test="ordersDcprice != null">`orders_dcprice` = #{ordersDcprice}, </if>
+			<if test="ordersProfit != null">`orders_profit` = #{ordersProfit}, </if>
+			<if test="ordersCreateDate != null">`orders_create_date` = #{ordersCreateDate}, </if>
+			<if test="ordersMaturityDate != null">`orders_maturity_date` = #{ordersMaturityDate}, </if>
+			<if test="ordersStatus != null">`orders_status` = #{ordersStatus}</if>
+		</set>
+		where orders_id = #{ordersId}
+	</update>
+
+	<delete id="remove">
+		delete from hf_orders where orders_id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from hf_orders where orders_id in
+		<foreach item="ordersId" collection="array" open="(" separator="," close=")">
+			#{ordersId}
+		</foreach>
+	</delete>
+
+
+	<select id="getDataOrders" parameterType="com.hf.domain.Domain.Orders.OrdersDataDo" resultType="com.hf.domain.Domain.Orders.OrdersDataDo">
+		SELECT
+			<if test="iden==1">
+				DATE_FORMAT(orders_create_date,"%Y") as time,
+			</if>
+			<if test="iden==2">
+				DATE_FORMAT(orders_create_date,"%m") as time,
+			</if>
+			<if test="iden==3">
+				DATE_FORMAT(orders_create_date,"%w") as time,
+			</if>
+			<if test="iden==4">
+				DATE_FORMAT(orders_create_date,"%d") as time,
+			</if>
+			<if test="iden==5">
+				DATE_FORMAT(orders_create_date,"%H") as time,
+			</if>
+		COUNT(orders_id) AS total ,sum(orders_gross) AS gross ,sum(orders_profit) AS profit
+		FROM hf_orders
+		WHERE orders_dept_id = #{ordersDeptId}
+		and orders_create_date BETWEEN #{start} and #{end}
+		and orders_status = #{statu}
+			<if test="iden==1">
+				GROUP BY DATE_FORMAT( orders_create_date, "%Y" )
+			</if>
+			<if test="iden==2">
+				GROUP BY DATE_FORMAT( orders_create_date, "%m" )
+			</if>
+			<if test="iden==3">
+				GROUP BY DATE_FORMAT( orders_create_date, "%w" )
+			</if>
+			<if test="iden==4">
+				GROUP BY DATE_FORMAT( orders_create_date, "%d" )
+			</if>
+			<if test="iden==5">
+				GROUP BY DATE_FORMAT( orders_create_date, "%H" )
+			</if>
+
+	</select>
+</mapper>

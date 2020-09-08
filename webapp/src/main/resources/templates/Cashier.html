@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang='en' xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset='UTF-8'>
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.modal-body::-webkit-scrollbar{
+		width:3px;
+		height:10px;
+		/**/
+	}
+	.modal-body::-webkit-scrollbar-thumb{
+		background: #bfbfbf;
+		border-radius:10px;
+	}
+	.modal-body::-webkit-scrollbar-thumb:hover{
+		background: #333;
+	}
+	.modal-body::-webkit-scrollbar-corner{
+		background: #179a16;
+	}
+	.acctive .thumbnail{
+		border:1px solid #faa64b;
+	}
+</style>
+<head th:replace="include :: header(收银台)"></head>
+<link href="webapp/css/bootstrap.min.css" rel="stylesheet">
+<link href="webapp/css/materialdesignicons.min.css" rel="stylesheet">
+<link href="webapp/css/style.min.css" rel="stylesheet">
+<body class="lyear-layout-sidebar-close" style="height: 100%;">
+<div class="lyear-layout-web">
+	<div class="lyear-layout-container">
+
+		<!--左侧导航-->
+		<div th:include="include :: aside(收银台)"></div>
+		<!--	头部导航-->
+		<div th:include="include :: top(收银台)"></div>
+
+		<main class="lyear-layout-content" style="padding-top:100px">
+			<!-- 已选商品 -->
+			<div class="col-lg-6">
+
+				<div class="card">
+					<div class="card-header bg-warning">
+						<h2>已选商品</h2>
+						<ul class="card-actions">
+							<li>
+								<button type="button"><i class="mdi mdi-more"></i></button>
+							</li>
+						</ul>
+					</div>
+					<div class="card-body lyear-layout-sidebar-scroll" style="height: 800px;overflow:scroll;">
+
+
+						<div class="table-responsive">
+							<table class="table table-hover" >
+								<thead>
+								<tr class="" style="font-size: 20px">
+									<th>
+										<label class="lyear-checkbox checkbox-danger m-t-10">
+											<input type="checkbox" id="checkall"><span></span>
+										</label>
+									</th>
+									<th class="col-lg-4">名称</th>
+									<th class="col-lg-2">价格</th>
+									<th class="col-lg-2">数量</th>
+									<th class="col-lg-2">小计</th>
+									<th class="col-lg-2">操作</th>
+								</tr>
+								</thead>
+								<tbody id="mytable" style="overflow: scroll">
+<!--							这里是购物车栏位<tr>-->
+
+
+								</tbody>
+
+							</table>
+						</div>
+
+					</div>
+					<pre></pre>
+					<div class="card-toolbar clearfix" >
+
+						<div class="toolbar-btn-action" style="margin-bottom: 2%;">
+							<a id="Settlement" class="btn btn-lg btn-success m-r-5" href="#!"><i class="mdi mdi-check"></i> 结算</a>
+							<a id="delall" class="btn btn-lg btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
+							<div id="dropup" class="btn-group dropup">
+								<span class="glyphicon glyphicon-usd"></span>
+
+								<button type="button" class="btn btn-lg btn-warning"><i class="mdi-square-inc-cash"></i><span id="nowPirStr">折扣</span></button><span style="display: none" id="nowPir"></span>
+								<button type="button" class="btn btn-lg btn-warning dropdown-toggle" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">
+									<span class="caret"></span>
+									<span class="sr-only">切换下拉列表</span>
+								</button>
+								<ul class="dropdown-menu ">
+									<li><a href="#!" class="zhekou"><span>7</span>折</a></li>
+									<li><a href="#!" class="zhekou"><span>7.5</span>折</a></li>
+									<li><a href="#!" class="zhekou"><span>8</span>折</a></li>
+									<li><a href="#!" class="zhekou"><span>8.5</span>折</a></li>
+									<li><a href="#!" class="zhekou"><span>9</span>折</a></li>
+									<li><a href="#!" class="zhekou"><span>9.5</span>折</a></li>
+									<li><a href="#!" class="zhekou"><span></span>取消折扣</a></li>
+								</ul>
+							</div>
+
+
+							<h1 class="col-lg-4" style="float: right;color: #ff0000;font-size: 30px;" >
+								合计:￥
+								<span style="font-size: 30px;" class="moey">0</span>
+								<span style="font-size: 30px;">元</span>
+							</h1>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- 所有商品 -->
+			<div class="col-lg-6">
+				<div class="card">
+					<div class="card-header bg-success">
+						<h2>所有商品</h2>
+						<ul class="card-actions">
+							<li>
+								<button type="button"><i class="mdi mdi-more"></i></button>
+							</li>
+						</ul>
+					</div>
+					<div class="card-body" style="height: 100%;">
+						<div class="row">
+							<ul class="nav nav-tabs nav-justified" id="navs">
+								<li data-toggle="tab" class="active"><a href="#" onclick="ConvertHot(1)" class="category" aria-expanded="true">人气热销</a></li>
+
+							</ul>
+
+						</div>
+						<div id="products" class="row modal-body" style="height: 800px;overflow: auto;-webkit-scrollbar:  2px;">
+
+							<!--								商品展示区域-->
+							<!--	<div class="col-sm-6 col-md-3 allfruits">
+										<div class="thumbnail">
+											<img data-src="holder.js/100%x200" alt="100%x200" src="" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+											<div class="caption">
+											<span hidden="hidden"></span>
+											<h3><span></span></h3><br/>
+											<p>价格</p>
+											<span>12</span>元/<span>斤</span>
+											<p>库存</p>
+										<span>200</span><span>斤</span></div></div></div>
+									-->
+
+
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+			<textarea hidden="hidden" id="pay"></textarea>
+		</main>
+	</div>
+</div>
+</body>
+<div th:replace="include::footer"></div>
+<script type='text/javascript' src='webapp/js/jquery.min.js'></script>
+<script type="text/javascript" src="webapp/js/Cashier.js"></script>
+<script type="text/javascript" src="webapp/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="webapp/js/main.min.js"></script>
+</html>

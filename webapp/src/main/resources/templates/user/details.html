@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: css"></head>
+<style>
+  .edit-avatar .img-avatar{
+    width: 168px;
+    height: 168px;
+  }
+</style>
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+
+    <!--页面主要内容-->
+    <main class="lyear-layout-content" style="padding-top:0px">
+
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <form id="signupForm" class="site-form">
+                <div class="edit-avatar">
+                  <a href="#" title="点击预览">
+                    <img onclick="preview()" src="/user/getUserPicture" class="img-avatar"  id="userImage"style="border: 1px solid #0a6aa1" />
+                  </a>
+                  <div class="avatar-divider"></div>
+                  <div class="edit-avatar-content">
+                    <h1 style="font-size: 25px;">快来选择一张你喜欢的图片吧</h1>
+                    <p class="m-0"></p>
+                    <br>
+                    <span style="display: none">
+                        <input id="userImgs" name="userImgs" class="form-control" type="file" multiple="multiple">
+                    </span>
+                    <a class="btn btn-default" onclick="imgbutton()">修改头像</a>
+                    <a class="btn btn-default" style="display: none" onclick="cancelImg()" id="cancelImg">取消修改</a>
+                  </div>
+                </div>
+                <hr>
+
+                  <div class="form-group">
+                    <label for="userId">账号</label>
+                    <input type="text" class="form-control" name="userId" id="userId" value="1001" readonly="readonly"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="userName">用户名</label>
+                    <input type="text" class="form-control" name="userName" id="userName" placeholder="输入您的用户名" value="">
+                  </div>
+                  <div class="form-group">
+                    <label for="userSex">性别</label>
+                    <select name="userSex" id="userSex" class="form-control" size="1">
+                      <option value="男">男</option>
+                      <option value="女">女</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="userBirth">生日</label>
+                    <input type="date" class="form-control" name="userBirth" id="userBirth">
+                  </div>
+                  <div class="form-group">
+                    <label for="userMobile">手机号码</label>
+                    <input type="text" class="form-control" name="userMobile" id="userMobile" placeholder="输入您的手机号码">
+                  </div>
+                  <div class="form-group">
+                    <label for="userEmail">邮箱</label>
+                    <input type="email" class="form-control" name="userEmail" id="userEmail" aria-describedby="emailHelp" placeholder="输入您的邮箱">
+                  </div>
+                  <button type="button" id="submit" class="btn btn-primary">保存</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+<div th:include="include :: footer"></div>
+</body>
+<script type="text/javascript" src="/webapp/js/user/details.js"></script>
+</html>

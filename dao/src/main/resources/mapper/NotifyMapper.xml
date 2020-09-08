@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hf.dao.Dao.NotifyDao">
+
+      <resultMap id="NotifyDOMap" type="com.hf.domain.Domain.Notify.NotifyDO">
+      
+    </resultMap>
+
+
+	<select id="get" resultType="com.hf.domain.Domain.Notify.NotifyDO"  resultMap="NotifyDOMap">
+		select `notify_id`,`notify_user_id`,`notify_thatuser`,`notify_title`,`notify_type`,`notify_content`,`notify_remarks`,`notify_create_date`,`notify_update_date` from hf_notify where notify_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.hf.domain.Domain.Notify.NotifyDO" resultMap="NotifyDOMap">
+		select `notify_id`,`notify_user_id`,`notify_thatuser`,`notify_title`,`notify_type`,`notify_content`,`notify_remarks`,`notify_create_date`,`notify_update_date` from hf_notify
+        <where>  
+		  		  <if test="notifyId != null"> and  notify_id = #{notifyId}  </if>
+		  		  <if test="notifyUserId != null"> and  notify_user_id = #{notifyUserId}  </if>
+		  		  <if test="notifyThatuser != null"> and  notify_thatuser = #{notifyThatuser}  </if>
+		  		  <if test="notifyTitle != null and notifyTitle != ''"> and  notify_title like  CONCAT('%',#{notifyTitle},'%')   </if>
+		  		  <if test="notifyType != null and notifyType != ''"> and  notify_type like  CONCAT('%',#{notifyType},'%')   </if>
+		  		  <if test="notifyContent != null and notifyContent != ''"> and  notify_content like  CONCAT('%',#{notifyContent},'%')   </if>
+		  		  <if test="notifyCreateDate != null"> and  notify_create_date = #{notifyCreateDate}  </if>
+		  		  <if test="notifyUpdateDate != null"> and  notify_update_date = #{notifyUpdateDate}  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by notify_update_date desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from hf_notify
+		 <where>  
+		  		  <if test="notifyId != null"> and  notify_id = #{notifyId}  </if>
+		  		  <if test="notifyUserId != null"> and  notify_user_id = #{notifyUserId}  </if>
+		  		  <if test="notifyThatuser != null"> and  notify_thatuser = #{notifyThatuser}  </if>
+		  		  <if test="notifyTitle != null and notifyTitle != ''"> and  notify_title like  CONCAT('%',#{notifyTitle},'%')   </if>
+		  		  <if test="notifyType != null and notifyType != ''"> and  notify_type like  CONCAT('%',#{notifyType},'%')   </if>
+		  		  <if test="notifyContent != null and notifyContent != ''"> and  notify_content like  CONCAT('%',#{notifyContent},'%')   </if>
+		  		  <if test="notifyRemarks != null and notifyRemarks != ''"> and  notify_remarks like  CONCAT('%',#{notifyRemarks},'%')   </if>
+		  		  <if test="notifyCreateDate != null"> and  notify_create_date = #{notifyCreateDate}  </if>
+		  		  <if test="notifyUpdateDate != null"> and  notify_update_date = #{notifyUpdateDate}  </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.hf.domain.Domain.Notify.NotifyDO" useGeneratedKeys="true" keyProperty="notifyId">
+		insert into hf_notify
+		(
+			`notify_user_id`, 
+			`notify_thatuser`, 
+			`notify_title`, 
+			`notify_type`, 
+			`notify_content`, 
+			`notify_remarks`, 
+			`notify_create_date`, 
+			`notify_update_date`
+		)
+		values
+		(
+			#{notifyUserId}, 
+			#{notifyThatuser}, 
+			#{notifyTitle}, 
+			#{notifyType}, 
+			#{notifyContent}, 
+			#{notifyRemarks}, 
+			#{notifyCreateDate}, 
+			#{notifyUpdateDate}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hf.domain.Domain.Notify.NotifyDO">
+		update hf_notify 
+		<set>
+		<if test="notifyUserId != null">	`notify_user_id` = #{notifyUserId},  </if>
+		<if test="notifyThatuser != null">	`notify_thatuser` = #{notifyThatuser},  </if>
+		<if test="notifyTitle != null">	`notify_title` = #{notifyTitle},  </if>
+		<if test="notifyType != null">	`notify_type` = #{notifyType},  </if>
+		<if test="notifyContent != null">	`notify_content` = #{notifyContent},  </if>
+		<if test="notifyRemarks != null">	`notify_remarks` = #{notifyRemarks},  </if>
+		<if test="notifyCreateDate != null">	`notify_create_date` = #{notifyCreateDate},  </if>
+		<if test="notifyUpdateDate != null">	`notify_update_date` = #{notifyUpdateDate} </if>
+		</set>
+		where notify_id = #{notifyId}
+	</update>
+	
+	<delete id="remove">
+		delete from hf_notify where notify_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from hf_notify where notify_id in 
+		<foreach item="notifyId" collection="array" open="(" separator="," close=")">
+			#{notifyId}
+		</foreach>
+	</delete>
+
+
+	<select id="toDayList" resultType="com.hf.domain.Domain.Notify.NotifyDO">
+		select * from hf_notify where to_days(notify_update_date) = to_days(now())
+	</select>
+
+</mapper>

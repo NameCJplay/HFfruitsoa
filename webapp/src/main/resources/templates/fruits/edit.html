@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+<meta charset="utf-8">
+<head th:include="include :: css"></head>
+<body class="gray-bg" >
+<div class="wrapper wrapper-content ">
+	<div th:text="${fruits}"></div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<form class="form-horizontal m-t" id="signupForm">
+						<input id="fruitsId" name="fruitsId" type="hidden">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">商品分类：</label>
+							<div class="col-sm-8">
+<!--								<input id="fruitsClassifyId" name="fruitsClassifyId" class="form-control" type="text">-->
+								<select class="form-control" id="fruitsClassifyId" name="fruitsClassifyId" size="1">
+<!--									<option value="0">请选择商品分类</option>-->
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">名称：</label>
+							<div class="col-sm-8">
+
+								<input id="fruitsName" name="fruitsName" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">成本价：</label>
+							<div class="col-sm-8">
+
+								<input id="fruitsCprice" name="fruitsCprice" class="form-control" type="number">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">单价：</label>
+							<div class="col-sm-8">
+
+								<input id="fruitsPrice" name="fruitsPrice" class="form-control" type="number">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">单位：</label>
+							<div class="col-sm-8">
+
+								<input id="fruitsUnit" name="fruitsUnit" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">库存：</label>
+							<div class="col-sm-8">
+
+								<input id="fruitsStock" name="fruitsStock" class="form-control" type="number">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">图片：</label>
+							<div class="col-sm-8">
+								<a href="#" title="点击预览">
+									<img onclick="preview()"  id="fruitsImage" style="height: 100px;border: 1px;" />
+									<img onclick="preview2()"  id="fruitsImages" hidden="hidden" style="height: 100px;border: 1px;" />
+								</a>
+								<a onclick="imgbutton()" class="btn btn-primary">点击选择</a>
+								<span style="display: none">
+									<input id="fruitsImgs" name="fruitsImgs" class="form-control" type="file" multiple="multiple">
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">到货时间：</label>
+							<div class="col-sm-8">
+								<input id="fruitsCreateDate" name="fruitsCreateDate" class="form-control" type="datetime-local" value="2020-12-12T21:21">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">保质期：</label>
+							<div class="col-sm-8">
+
+								<input id="fruitsMaturityDate" name="fruitsMaturityDate" class="form-control" type="number">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">供应商+电话：</label>
+							<div class="col-sm-8">
+
+								<input id="fruitsSupplier" name="fruitsSupplier"  class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">热销：</label>
+							<div class="col-sm-8">
+<!--								<input id="fruitsHot" name="fruitsHot" th:value="#{fruits.fruitsHot}" class="form-control" type="text">-->
+								<select class="form-control" id="fruitsHot" name="fruitsHot" size="1">
+									<option value="1">热销</option>
+									<option value="0">非热销</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">商品状态：</label>
+							<div class="col-sm-8">
+
+<!--								<input id="fruitsStatus" name="fruitsStatus" th:value="#{fruits.fruitsStatus}" class="form-control" type="text">-->
+								<select class="form-control" id="fruitsStatus" name="fruitsStatus" size="1">
+									<option value="1">正常</option>
+									<option value="2">停售</option>
+									<option value="3">已售空</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-8 col-sm-offset-3">
+								<button type="submit" class="btn btn-primary">提交</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/webapp/js/fruits/edit.js"></script>
+<script type="text/javascript" src="/webapp/js/jquery.min.js" ></script>
+<script th:inline="javascript">
+		var fruitsId = '[[${fruitsId}]]';
+		load(fruitsId);
+</script>
+</body>
+</html>

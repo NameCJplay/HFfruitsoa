@@ -1,0 +1,27 @@
+hf:
+  FileUrl: D:/框架/毕业项目/kkFileView-2.2.0/file/UserImage/
+server:
+  port: 8083
+spring:
+  application:
+    name: user
+  couchbase:
+    env:
+      timeouts:
+        socket-connect: 30000
+  servlet:
+    multipart:
+      enabled: true
+ribbon:
+  eureka:
+    enabled: true
+feign:
+  httpclient:
+    connection-timeout: 30000
+hystrix:
+  metrics:
+    enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8088/eureka/

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hf.dao.Dao.NotifyFileDao">
+
+      <resultMap id="NotifyFileDOMap" type="com.hf.domain.Domain.Notify.NotifyFileDO">
+      
+    </resultMap>
+
+
+	<select id="get" resultType="com.hf.domain.Domain.Notify.NotifyFileDO"  resultMap="NotifyFileDOMap">
+		select `file_id`,`file_notify_id`,`file_path`,`file_filename`,`file_name` from hf_notify_file where file_id = #{value}
+	</select>
+
+	<select id="getby" resultType="com.hf.domain.Domain.Notify.NotifyFileDO"  resultMap="NotifyFileDOMap">
+		select `file_id`,`file_notify_id`,`file_path`,`file_filename`,`file_name` from hf_notify_file where file_notify_id = #{value}
+	</select>
+
+
+	<select id="list" resultType="com.hf.domain.Domain.Notify.NotifyFileDO" resultMap="NotifyFileDOMap">
+		select `file_id`,`file_notify_id`,`file_path`,`file_filename`,`file_name` from hf_notify_file
+        <where>  
+		  		  <if test="fileId != null"> and  file_id = #{fileId}  </if>
+		  		  <if test="fileNotifyId != null"> and  file_notify_id = #{fileNotifyId}  </if>
+		  		  <if test="filePath != null and filePath != ''"> and  file_path like  CONCAT('%',#{filePath},'%')   </if>
+		  		  <if test="fileFilename != null and fileFilename != ''"> and  file_filename like  CONCAT('%',#{fileFilename},'%')   </if>
+		  		  <if test="fileName != null and fileName != ''"> and  file_name like  CONCAT('%',#{fileName},'%')   </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by file_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from hf_notify_file
+		 <where>  
+		  		  <if test="fileId != null"> and  file_id = #{fileId}  </if>
+		  		  <if test="fileNotifyId != null"> and  file_notify_id = #{fileNotifyId}  </if>
+		  		  <if test="filePath != null and filePath != ''"> and  file_path like  CONCAT('%',#{filePath},'%')   </if>
+		  		  <if test="fileFilename != null and fileFilename != ''"> and  file_filename like  CONCAT('%',#{fileFilename},'%')   </if>
+		  		  <if test="fileName != null and fileName != ''"> and  file_name like  CONCAT('%',#{fileName},'%')   </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.hf.domain.Domain.Notify.NotifyFileDO" useGeneratedKeys="true" keyProperty="fileId">
+		insert into hf_notify_file
+		(
+			`file_notify_id`, 
+			`file_path`, 
+			`file_filename`, 
+			`file_name`
+		)
+		values
+		(
+			#{fileNotifyId}, 
+			#{filePath}, 
+			#{fileFilename}, 
+			#{fileName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hf.domain.Domain.Notify.NotifyFileDO">
+		update hf_notify_file 
+		<set>
+		<if test="fileNotifyId != null">	`file_notify_id` = #{fileNotifyId},  </if>
+		<if test="filePath != null">	`file_path` = #{filePath},  </if>
+		<if test="fileFilename != null">	`file_filename` = #{fileFilename},  </if>
+		<if test="fileName != null">	`file_name` = #{fileName} </if>
+		</set>
+		where file_id = #{fileId}
+	</update>
+	
+	<delete id="remove">
+		delete from hf_notify_file where file_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from hf_notify_file where file_id in 
+		<foreach item="fileId" collection="array" open="(" separator="," close=")">
+			#{fileId}
+		</foreach>
+	</delete>
+
+</mapper>

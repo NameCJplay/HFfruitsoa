@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: css"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<form class="form-horizontal m-t" id="signupForm">
+						<input id="userId" name="userId"  type="hidden">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">用户名：</label>
+							<div class="col-sm-8">
+
+								<input id="userName" name="userName"  class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">密码：</label>
+							<div class="col-sm-8">
+
+								<input id="userPwd" name="userPwd"  class="form-control" type="password">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">手机号:</label>
+							<div class="col-sm-8">
+								<input id="userMobile" name="userMobile" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">邮箱：</label>
+							<div class="col-sm-8">
+
+								<input id="userEmail" name="userEmail" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">头像：</label>
+							<div class="col-sm-8">
+								<a href="#" title="点击预览">
+									<img onclick="preview()"  id="userImage" style="height: 100px;border: 1px;" />
+									<img onclick="preview2()"  id="userImages" hidden="hidden" style="height: 100px;border: 1px;" />
+								</a>
+								<a onclick="imgbutton()" class="btn btn-primary">点击选择</a>
+								<span style="display: none">
+									<input id="userImgs" name="userImgs" class="form-control" type="file" multiple="multiple">
+								</span></div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">性别：</label>
+							<div class="col-sm-8">
+<!--								<input id="userSex" name="userSex"  class="form-control" type="text">-->
+								<select class="form-control" id="userSex" name="userSex" size="1">
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">生日：</label>
+							<div class="col-sm-8">
+								<input id="userBirth" name="userBirth" class="form-control" type="date" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">状态：</label>
+							<div class="col-sm-8">
+<!--								<input id="userStatus" name="userStatus" class="form-control" type="text">-->
+								<select class="form-control" id="userStatus" name="userStatus" size="1">
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">权限：</label>
+							<div class="col-sm-8">
+<!--								<input id="userRole" name="userRole" class="form-control" type="text">-->
+								<select class="form-control" id="userRole" name="userRole" size="1">
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">所属部门：</label>
+							<div class="col-sm-8">
+<!--								<input id="userDeptId" name="userDeptId"  class="form-control" type="text">-->
+								<select class="form-control" id="userDeptId" name="userDeptId" size="1">
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-8 col-sm-offset-3">
+								<button type="submit" class="btn btn-primary">提交</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/webapp/js/user/edit.js">
+</script>
+<script th:inline="javascript">
+	var userId = '[[${userId}]]';
+	load(userId);
+</script>
+</body>
+</html>

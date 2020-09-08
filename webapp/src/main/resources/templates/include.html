@@ -1,0 +1,287 @@
+<head th:fragment="header(page)" xmlns:th="http://www.w3.org/1999/xhtml">
+	<meta charset="utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<title th:text="${'鸿发水果 - '+page}"></title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="/webapp/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/webapp/css/animate.css" />
+	<link rel="stylesheet" href="/webapp/css/font-awesome.css" />
+	<link rel="stylesheet" href="/webapp/css/style.css" />
+	<link rel="stylesheet" href="/webapp/css/plugins/iCheck/custom.css" />
+	<link rel="stylesheet" href="/webapp/css/plugins/cropper/cropper.css" />
+	<link rel="stylesheet" href="/webapp/css/gg-bootdo.css" />
+	<link rel="stylesheet" href="/webapp/css/plugins/bootstrap-table/bootstrap-table.min.css" >
+	<link rel="stylesheet" href="/webapp/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="/webapp/css/style.min.css">
+	<link href="/webapp/css/plugins/jsTree/style.min.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/jqTreeGrid/jquery.treegrid.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/summernote/summernote-0.8.8.css" rel="stylesheet">
+	<link href="/webapp/css/animate.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/chosen/chosen.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/chosen/chosen.css" rel="stylesheet">
+	<link href="/webapp/js/jquery-tags-input/jquery.tagsinput.min.css" rel="stylesheet">
+</head>
+<div th:fragment="footer" xmlns:th="http://www.w3.org/1999/xhtml">
+	<script type="text/javascript" src="/webapp/js/jquery.min.js" ></script>
+	<script src="/webapp/js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="/webapp/js/plugins/validate/jquery.validate.extend.js"></script>
+	<script type="text/javascript" src="/webapp/js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="/webapp/js/plugins/iCheck/icheck.min.js"></script>
+	<script type="text/javascript" src="/webapp/js/plugins/cropper/cropper.min.js"></script>
+	<script type="text/javascript" src="/webapp/js/plugins/layer/laydate/laydate.js" ></script>
+	<script type="text/javascript" src="/webapp/js/plugins/distpicker/distpicker.data.min.js"></script>
+	<script type="text/javascript" src="/webapp/js/plugins/distpicker/distpicker.min.js"></script>
+	<script type="text/javascript" src="/webapp/js/layer.min.js"></script>
+	<script type="text/javascript" src="/webapp/js/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="/webapp/js/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript" src="/webapp/js/main.min.js"></script>
+	<script src="/webapp/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+	<script src="/webapp/js/plugins/jsTree/jstree.min.js"></script>
+	<script src="/webapp/js/plugins/jqTreeGrid/jquery.treegrid.min.js"></script>
+	<script src="/webapp/js/plugins/jqTreeGrid/jquery.treegrid.extension.js"></script>
+	<script src="/webapp/js/plugins/jqTreeGrid/jquery.treegrid.bootstrap3.js"></script>
+	<script src="/webapp/js/plugins/chosen/chosen.jquery.js"></script>
+	<script src="/webapp/js/plugins/layer/layer.js"></script>
+	<script src="/webapp/js/content.js"></script>
+	<script src="/webapp/js/plugins/summernote/summernote.js"></script>
+	<script src="/webapp/js/plugins/summernote/summernote-zh-CN.min.js"></script>
+	<script src="/webapp/js/ajax-util.js"></script>
+	<script src="/webapp/js/jquery-tags-input/jquery.tagsinput.min.js"></script>
+	<script src="/webapp/js/mynumber.js"></script>
+</div>
+<!--左侧导航栏-->
+<div th:fragment="aside(page)" xmlns:th="http://www.w3.org/1999/xhtml">
+	<aside class="lyear-layout-sidebar">
+		<!-- logo -->
+		<div id="logo" class="sidebar-header">
+			<a href="/index"><img src="/webapp/images/logo.jpg" title="LightYear" alt="LightYear" /></a>
+		</div>
+		<div class="lyear-layout-sidebar-scroll">
+			<nav class="sidebar-main">
+				<ul class="nav nav-drawer" >
+					<li class="nav-item" th:classappend="${page == '首页'} ? 'active' : '' "> <a href="/index"><i class="mdi mdi-home"></i> 首页</a> </li>
+					<li class="nav-item" th:classappend="${page == '水果管理'} ? 'active' : '' "> <a href="/FruitsIndex"><i class="mdi mdi-apple"></i> 水果管理</a> </li>
+					<li class="nav-item" th:classappend="${page == '分类管理'} ? 'active' : '' "> <a href="/ClassifyIndex"><i class="mdi mdi-buffer"></i> 分类管理</a> </li>
+					<li class="nav-item" th:classappend="${page == '用户管理'} ? 'active' : '' "> <a href="/UserIndex"><i class="mdi mdi-account"></i> 用户管理</a> </li>
+					<li class="nav-item" th:classappend="${page == '部门管理'} ? 'active' : '' "> <a href="/DeptIndex"><i class="mdi mdi-account-multiple"></i> 部门管理</a> </li>
+					<li class="nav-item" th:classappend="${page == '订单管理'} ? 'active' : '' "> <a href="/OrdersIndex"><i class="mdi mdi-content-paste"></i> 订单管理</a> </li>
+					<li class="nav-item" th:classappend="${page == '消息通知'} ? 'active' : '' "> <a href="/NotifyIndex"><i class="mdi mdi-comment-processing"></i> 消息通知</a> </li>
+					<li class="nav-item" th:classappend="${page == '收银台'} ? 'active' : '' "> <a href="/Cashier"><i class="mdi mdi-coin"></i> 收银台</a> </li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+</div>
+
+<div th:fragment="top(page)" xmlns:th="http://www.w3.org/1999/xhtml">
+	<header class="lyear-layout-header">
+		<nav class="navbar navbar-default">
+			<div class="topbar">
+
+				<div class="topbar-left">
+					<div class="lyear-aside-toggler">
+						<span class="lyear-toggler-bar"></span>
+						<span class="lyear-toggler-bar"></span>
+						<span class="lyear-toggler-bar"></span>
+					</div>
+					<span class="navbar-page-title" th:text="${page}"> -- </span>
+				</div>
+
+				<ul class="topbar-right">
+					<li class="dropdown dropdown-profile">
+						<a href="javascript:void(0)" data-toggle="dropdown">
+							<img class="img-avatar img-avatar-48 m-r-10" src="/user/getUserPicture" alt="头像" />
+							<span id="UserName" > 鸿发水果 <span class="caret"></span></span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li> <a href="javascript:UserDetails()"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+							<li> <a href="javascript:UserEditPwd()"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+							<li class="divider"></li>
+							<li> <a href="/logout"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+						</ul>
+						<script type="text/javascript" src="/webapp/js/jquery.min.js" ></script>
+						<script>
+							function UserDetails() {
+								layer.open({
+									type : 2,
+									title : '个人信息',
+									maxmin : true,
+									shadeClose : false, // 点击遮罩关闭层
+									area : [ '788px', '830px' ],
+									content : '/UserDetails' // iframe的url
+								});
+							}
+							function UserEditPwd() {
+								layer.open({
+									type : 2,
+									title : '修改密码',
+									maxmin : true,
+									shadeClose : false, // 点击遮罩关闭层
+									area : [ '500px', '420px' ],
+									content : '/UserEditPwd' // iframe的url
+								});
+							}
+							
+						</script>
+					</li>
+					<!--切换主题配色-->
+					<li class="dropdown dropdown-skin">
+						<span data-toggle="dropdown" class="icon-palette"><i class="mdi mdi-palette"></i></span>
+						<ul class="dropdown-menu dropdown-menu-right" data-stopPropagation="true">
+							<li class="drop-title"><p>主题</p></li>
+							<li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="site_theme" value="default" id="site_theme_1" checked>
+                    <label for="site_theme_1"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="site_theme" value="dark" id="site_theme_2">
+                    <label for="site_theme_2"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="site_theme" value="translucent" id="site_theme_3">
+                    <label for="site_theme_3"></label>
+                  </span>
+							</li>
+							<li class="drop-title"><p>LOGO</p></li>
+							<li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="logo_bg" value="default" id="logo_bg_1" checked>
+                    <label for="logo_bg_1"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="logo_bg" value="color_2" id="logo_bg_2">
+                    <label for="logo_bg_2"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="logo_bg" value="color_3" id="logo_bg_3">
+                    <label for="logo_bg_3"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="logo_bg" value="color_4" id="logo_bg_4">
+                    <label for="logo_bg_4"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="logo_bg" value="color_5" id="logo_bg_5">
+                    <label for="logo_bg_5"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="logo_bg" value="color_6" id="logo_bg_6">
+                    <label for="logo_bg_6"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="logo_bg" value="color_7" id="logo_bg_7">
+                    <label for="logo_bg_7"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="logo_bg" value="color_8" id="logo_bg_8">
+                    <label for="logo_bg_8"></label>
+                  </span>
+							</li>
+							<li class="drop-title"><p>头部</p></li>
+							<li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="header_bg" value="default" id="header_bg_1" checked>
+                    <label for="header_bg_1"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="header_bg" value="color_2" id="header_bg_2">
+                    <label for="header_bg_2"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="header_bg" value="color_3" id="header_bg_3">
+                    <label for="header_bg_3"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="header_bg" value="color_4" id="header_bg_4">
+                    <label for="header_bg_4"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="header_bg" value="color_5" id="header_bg_5">
+                    <label for="header_bg_5"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="header_bg" value="color_6" id="header_bg_6">
+                    <label for="header_bg_6"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="header_bg" value="color_7" id="header_bg_7">
+                    <label for="header_bg_7"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="header_bg" value="color_8" id="header_bg_8">
+                    <label for="header_bg_8"></label>
+                  </span>
+							</li>
+							<li class="drop-title"><p>侧边栏</p></li>
+							<li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="sidebar_bg" value="default" id="sidebar_bg_1" checked>
+                    <label for="sidebar_bg_1"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="sidebar_bg" value="color_2" id="sidebar_bg_2">
+                    <label for="sidebar_bg_2"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="sidebar_bg" value="color_3" id="sidebar_bg_3">
+                    <label for="sidebar_bg_3"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="sidebar_bg" value="color_4" id="sidebar_bg_4">
+                    <label for="sidebar_bg_4"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="sidebar_bg" value="color_5" id="sidebar_bg_5">
+                    <label for="sidebar_bg_5"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="sidebar_bg" value="color_6" id="sidebar_bg_6">
+                    <label for="sidebar_bg_6"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="sidebar_bg" value="color_7" id="sidebar_bg_7">
+                    <label for="sidebar_bg_7"></label>
+                  </span>
+								<span>
+                    <input type="radio" name="sidebar_bg" value="color_8" id="sidebar_bg_8">
+                    <label for="sidebar_bg_8"></label>
+                  </span>
+							</li>
+						</ul>
+					</li>
+					<!--切换主题配色-->
+				</ul>
+			</div>
+		</nav>
+	</header>
+</div>
+
+<head th:fragment="css" xmlns:th="http://www.w3.org/1999/xhtml">
+	<meta charset="utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="/webapp/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/webapp/css/animate.css" />
+	<link rel="stylesheet" href="/webapp/css/font-awesome.css" />
+	<link rel="stylesheet" href="/webapp/css/style.css" />
+	<link rel="stylesheet" href="/webapp/css/plugins/iCheck/custom.css" />
+	<link rel="stylesheet" href="/webapp/css/plugins/cropper/cropper.css" />
+	<link rel="stylesheet" href="/webapp/css/gg-bootdo.css" />
+	<link rel="stylesheet" href="/webapp/css/plugins/bootstrap-table/bootstrap-table.min.css" >
+	<link rel="stylesheet" href="/webapp/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="/webapp/css/style.min.css">
+	<link href="/webapp/css/plugins/jsTree/style.min.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/jqTreeGrid/jquery.treegrid.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/summernote/summernote-0.8.8.css" rel="stylesheet">
+	<link href="/webapp/css/animate.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/chosen/chosen.css" rel="stylesheet">
+	<link href="/webapp/css/plugins/chosen/chosen.css" rel="stylesheet">
+	<link href="/webapp/js/jquery-tags-input/jquery.tagsinput.min.css" rel="stylesheet">
+</head>

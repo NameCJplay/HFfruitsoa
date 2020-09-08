@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hf.dao.Dao.FruitsDao">
+
+      <resultMap id="FruitsDOMap" type="com.hf.domain.Domain.Fruits.FruitsDO">
+
+    </resultMap>
+	<select id="getfruits" parameterType="com.hf.domain.Domain.Fruits.FruitsDO" resultType="com.hf.domain.Domain.Fruits.FruitsDO">
+		select `fruits_id`,`fruits_classify_id`,`fruits_name`,`fruits_cprice`,`fruits_price`,`fruits_unit`,`fruits_stock`,`fruits_img`,`fruits_create_date`,`fruits_maturity_date`,`fruits_supplier`,`fruits_hot`,`fruits_status` from hf_fruits
+		<where>
+			<if test="fruitsClassifyId != null">or fruits_classify_id = #{fruitsClassifyId}</if>
+			<if test="fruitsHot != null">or fruits_hot = #{fruitsHot}  </if>
+		</where>
+
+	</select>
+
+	<select id="toMaturity" resultType="com.hf.domain.Domain.Fruits.FruitsDO">
+		SELECT * from  hf_fruits
+		WHERE
+		fruits_maturity_date > DATE_SUB(#{date},INTERVAL #{day} DAY)
+		and fruits_maturity_date  > #{date}
+		and fruits_status =1
+	</select>
+
+
+	<select id="get" resultType="com.hf.domain.Domain.Fruits.FruitsDO"  resultMap="FruitsDOMap">
+		select `fruits_id`,`fruits_classify_id`,`fruits_name`,`fruits_cprice`,`fruits_price`,`fruits_unit`,`fruits_stock`,`fruits_img`,`fruits_create_date`,`fruits_maturity_date`,`fruits_supplier`,`fruits_hot`,`fruits_status` from hf_fruits where fruits_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.hf.domain.Domain.Fruits.FruitsDO" resultMap="FruitsDOMap">
+		select `fruits_id`,`fruits_classify_id`,`fruits_name`,`fruits_cprice`,`fruits_price`,`fruits_unit`,`fruits_stock`,`fruits_img`,`fruits_create_date`,`fruits_maturity_date`,`fruits_supplier`,`fruits_hot`,`fruits_status` from hf_fruits
+        <where>
+		  		  <if test="fruitsId != null"> and  fruits_id = #{fruitsId}  </if>
+		  		  <if test="fruitsClassifyId != null"> and  fruits_classify_id = #{fruitsClassifyId}  </if>
+		  		  <if test="fruitsName != null and fruitsName != ''"> and  fruits_name like  CONCAT('%',#{fruitsName},'%')   </if>
+		  		  <if test="fruitsCprice != null"> and  fruits_cprice = #{fruitsCprice}  </if>
+		  		  <if test="fruitsPrice != null"> and  fruits_price = #{fruitsPrice}  </if>
+		  		  <if test="fruitsUnit != null and fruitsUnit != ''"> and  fruits_unit like  CONCAT('%',#{fruitsUnit},'%')   </if>
+		  		  <if test="fruitsStock != null"> and  fruits_stock = #{fruitsStock}  </if>
+		  		  <if test="fruitsImg != null and fruitsImg != ''"> and  fruits_img like  CONCAT('%',#{fruitsImg},'%')   </if>
+		  		  <if test="fruitsCreateDate != null"> and  fruits_create_date = #{fruitsCreateDate}  </if>
+		  		  <if test="fruitsMaturityDate != null"> and  fruits_maturity_date = #{fruitsMaturityDate}  </if>
+		  		  <if test="fruitsSupplier != null and fruitsSupplier != ''"> and  fruits_supplier like  CONCAT('%',#{fruitsSupplier},'%')   </if>
+		  		  <if test="fruitsHot != null"> and  fruits_hot = #{fruitsHot}  </if>
+		  		  <if test="fruitsStatus != null"> and  fruits_status = #{fruitsStatus}  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by fruits_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit ${offset}, ${limit}
+		</if>
+	</select>
+
+ 	<select id="count" resultType="int">
+		select count(*) from hf_fruits
+		 <where>
+		  		  <if test="fruitsId != null"> and  fruits_id = #{fruitsId}  </if>
+		  		  <if test="fruitsClassifyId != null"> and  fruits_classify_id = #{fruitsClassifyId}  </if>
+		  		  <if test="fruitsName != null and fruitsName != ''"> and  fruits_name like  CONCAT('%',#{fruitsName},'%')   </if>
+		  		  <if test="fruitsCprice != null"> and  fruits_cprice = #{fruitsCprice}  </if>
+		  		  <if test="fruitsPrice != null"> and  fruits_price = #{fruitsPrice}  </if>
+		  		  <if test="fruitsUnit != null and fruitsUnit != ''"> and  fruits_unit like  CONCAT('%',#{fruitsUnit},'%')   </if>
+		  		  <if test="fruitsStock != null"> and  fruits_stock = #{fruitsStock}  </if>
+		  		  <if test="fruitsImg != null and fruitsImg != ''"> and  fruits_img like  CONCAT('%',#{fruitsImg},'%')   </if>
+		  		  <if test="fruitsCreateDate != null"> and  fruits_create_date = #{fruitsCreateDate}  </if>
+		  		  <if test="fruitsMaturityDate != null"> and  fruits_maturity_date = #{fruitsMaturityDate}  </if>
+		  		  <if test="fruitsSupplier != null and fruitsSupplier != ''"> and  fruits_supplier like  CONCAT('%',#{fruitsSupplier},'%')   </if>
+		  		  <if test="fruitsHot != null"> and  fruits_hot = #{fruitsHot}  </if>
+		  		  <if test="fruitsStatus != null"> and  fruits_status = #{fruitsStatus}  </if>
+		  		</where>
+	</select>
+
+	<insert id="save" parameterType="com.hf.domain.Domain.Fruits.FruitsDO" useGeneratedKeys="true" keyProperty="fruitsId">
+		insert into hf_fruits
+		(
+			`fruits_classify_id`, 
+			`fruits_name`, 
+			`fruits_cprice`, 
+			`fruits_price`, 
+			`fruits_unit`, 
+			`fruits_stock`, 
+			`fruits_img`, 
+			`fruits_create_date`, 
+			`fruits_maturity_date`, 
+			`fruits_supplier`, 
+			`fruits_hot`, 
+			`fruits_status`
+		)
+		values
+		(
+			#{fruitsClassifyId}, 
+			#{fruitsName}, 
+			#{fruitsCprice}, 
+			#{fruitsPrice}, 
+			#{fruitsUnit}, 
+			#{fruitsStock}, 
+			#{fruitsImg}, 
+			#{fruitsCreateDate}, 
+			#{fruitsMaturityDate}, 
+			#{fruitsSupplier}, 
+			#{fruitsHot}, 
+			#{fruitsStatus}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.hf.domain.Domain.Fruits.FruitsDO">
+		update hf_fruits
+		<set>
+		<if test="fruitsClassifyId != null">	`fruits_classify_id` = #{fruitsClassifyId},  </if>
+		<if test="fruitsName != null">	`fruits_name` = #{fruitsName},  </if>
+		<if test="fruitsCprice != null">	`fruits_cprice` = #{fruitsCprice},  </if>
+		<if test="fruitsPrice != null">	`fruits_price` = #{fruitsPrice},  </if>
+		<if test="fruitsUnit != null">	`fruits_unit` = #{fruitsUnit},  </if>
+		<if test="fruitsStock != null">	`fruits_stock` = #{fruitsStock},  </if>
+		<if test="fruitsImg != null">	`fruits_img` = #{fruitsImg},  </if>
+		<if test="fruitsCreateDate != null">	`fruits_create_date` = #{fruitsCreateDate},  </if>
+		<if test="fruitsMaturityDate != null">	`fruits_maturity_date` = #{fruitsMaturityDate},  </if>
+		<if test="fruitsSupplier != null">	`fruits_supplier` = #{fruitsSupplier},  </if>
+		<if test="fruitsHot != null">	`fruits_hot` = #{fruitsHot},  </if>
+		<if test="fruitsStatus != null">	`fruits_status` = #{fruitsStatus} </if>
+		</set>
+		where fruits_id = #{fruitsId}
+	</update>
+
+	<delete id="remove">
+		delete from hf_fruits where fruits_id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from hf_fruits where fruits_id in
+		<foreach item="fruitsId" collection="array" open="(" separator="," close=")">
+			#{fruitsId}
+		</foreach>
+	</delete>
+
+</mapper>

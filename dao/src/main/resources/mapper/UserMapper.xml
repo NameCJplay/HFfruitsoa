@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hf.dao.Dao.UserDao">
+
+      <resultMap id="UserDOMap" type="com.hf.domain.Domain.User.UserDO">
+      
+    </resultMap>
+
+
+	<select id="get" resultType="com.hf.domain.Domain.User.UserDO"  resultMap="UserDOMap">
+		select `user_id`,`user_name`,`user_pwd`,`user_mobile`,`user_email`,`user_img`,`user_sex`,`user_birth`,`user_create`,`user_modified`,`user_status`,`user_role`,`user_dept_id` from hf_user where user_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.hf.domain.Domain.User.UserDO" resultMap="UserDOMap">
+		select `user_id`,`user_name`,`user_pwd`,`user_mobile`,`user_email`,`user_img`,`user_sex`,`user_birth`,`user_create`,`user_modified`,`user_status`,`user_role`,`user_dept_id` from hf_user
+        <where>  
+		  		  <if test="userId != null"> and  user_id = #{userId}  </if>
+		  		  <if test="userName != null and userName != ''"> and  user_name like  CONCAT('%',#{userName},'%')   </if>
+		  		  <if test="userPwd != null and userPwd != ''"> and  user_pwd like  CONCAT('%',#{userPwd},'%')   </if>
+		  		  <if test="userMobile != null and userMobile != ''"> and  user_mobile like  CONCAT('%',#{userMobile},'%')   </if>
+		  		  <if test="userEmail != null and userEmail != ''"> and  user_email like  CONCAT('%',#{userEmail},'%')   </if>
+		  		  <if test="userImg != null and userImg != ''"> and  user_img like  CONCAT('%',#{userImg},'%')   </if>
+		  		  <if test="userSex != null and userSex != ''"> and  user_sex like  CONCAT('%',#{userSex},'%')   </if>
+		  		  <if test="userBirth != null and userBirth != ''"> and  user_birth like  CONCAT('%',#{userBirth},'%')   </if>
+		  		  <if test="userCreate != null and userCreate != ''"> and  user_create like  CONCAT('%',#{userCreate},'%')   </if>
+		  		  <if test="userModified != null and userModified != ''"> and  user_modified like  CONCAT('%',#{userModified},'%')   </if>
+		  		  <if test="userStatus != null"> and  user_status = #{userStatus}  </if>
+		  		  <if test="userRole != null"> and  user_role = #{userRole}  </if>
+		  		  <if test="userDeptId != null"> and  user_dept_id = #{userDeptId}  </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by user_id
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from hf_user
+		 <where>  
+		  		  <if test="userId != null"> and  user_id = #{userId}  </if>
+		  		  <if test="userName != null and userName != ''"> and  user_name like  CONCAT('%',#{userName},'%')   </if>
+		  		  <if test="userPwd != null and userPwd != ''"> and  user_pwd like  CONCAT('%',#{userPwd},'%')   </if>
+		  		  <if test="userMobile != null and userMobile != ''"> and  user_mobile like  CONCAT('%',#{userMobile},'%')   </if>
+		  		  <if test="userEmail != null and userEmail != ''"> and  user_email like  CONCAT('%',#{userEmail},'%')   </if>
+		  		  <if test="userImg != null and userImg != ''"> and  user_img like  CONCAT('%',#{userImg},'%')   </if>
+		  		  <if test="userSex != null and userSex != ''"> and  user_sex like  CONCAT('%',#{userSex},'%')   </if>
+		  		  <if test="userBirth != null and userBirth != ''"> and  user_birth like  CONCAT('%',#{userBirth},'%')   </if>
+		  		  <if test="userCreate != null and userCreate != ''"> and  user_create like  CONCAT('%',#{userCreate},'%')   </if>
+		  		  <if test="userModified != null and userModified != ''"> and  user_modified like  CONCAT('%',#{userModified},'%')   </if>
+		  		  <if test="userStatus != null"> and  user_status = #{userStatus}  </if>
+		  		  <if test="userRole != null"> and  user_role = #{userRole}  </if>
+		  		  <if test="userDeptId != null"> and  user_dept_id = #{userDeptId}  </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.hf.domain.Domain.User.UserDO" useGeneratedKeys="true" keyProperty="userId">
+		insert into hf_user
+		(
+			`user_name`, 
+			`user_pwd`, 
+			`user_mobile`, 
+			`user_email`, 
+			`user_img`, 
+			`user_sex`, 
+			`user_birth`, 
+			`user_create`, 
+			`user_modified`,
+			`user_role`, 
+			`user_dept_id`
+		)
+		values
+		(
+			#{userName}, 
+			#{userPwd}, 
+			#{userMobile}, 
+			#{userEmail}, 
+			#{userImg}, 
+			#{userSex}, 
+			#{userBirth}, 
+			#{userCreate}, 
+			#{userModified},
+			#{userRole}, 
+			#{userDeptId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.hf.domain.Domain.User.UserDO">
+		update hf_user 
+		<set>
+		<if test="userName != null">	`user_name` = #{userName},  </if>
+		<if test="userPwd != null">	`user_pwd` = #{userPwd},  </if>
+		<if test="userMobile != null">	`user_mobile` = #{userMobile},  </if>
+		<if test="userEmail != null">	`user_email` = #{userEmail},  </if>
+		<if test="userImg != null">	`user_img` = #{userImg},  </if>
+		<if test="userSex != null">	`user_sex` = #{userSex},  </if>
+		<if test="userBirth != null">	`user_birth` = #{userBirth},  </if>
+		<if test="userCreate != null">	`user_create` = #{userCreate},  </if>
+		<if test="userModified != null">	`user_modified` = #{userModified},  </if>
+		<if test="userStatus != null">	`user_status` = #{userStatus},  </if>
+		<if test="userRole != null">	`user_role` = #{userRole},  </if>
+		<if test="userDeptId != null">	`user_dept_id` = #{userDeptId} </if>
+		</set>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="remove">
+		delete from hf_user where user_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from hf_user where user_id in 
+		<foreach item="userId" collection="array" open="(" separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
+	<select id="login" resultType="com.hf.domain.Domain.User.UserDO">
+		select `user_id`,`user_name`,`user_pwd`,`user_mobile`,`user_email`,`user_img`,`user_sex`,`user_birth`,`user_create`,`user_modified`,`user_status`,`user_role`,`user_dept_id` from hf_user
+		where user_pwd = #{userPwd} and (user_id=#{userValue} or user_mobile=#{userValue} or user_email=#{userValue})
+	</select>
+
+	<select id="getbyvalue"  resultType="com.hf.domain.Domain.User.UserDO">
+		select `user_id`,`user_name`,`user_pwd`,`user_mobile`,`user_email`,`user_img`,`user_sex`,`user_birth`,`user_create`,`user_modified`,`user_status`,`user_role`,`user_dept_id` from hf_user
+		where user_id = #{value} or user_mobile= #{value} or user_email= #{value}
+	</select>
+
+</mapper>
