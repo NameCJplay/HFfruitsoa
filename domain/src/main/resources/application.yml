@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: domain
+#  main:
+#    web-application-type: none
 eureka:
   client:
     service-url:
@@ -13,3 +15,4 @@ hystrix:
 ribbon:
   eureka:
     enabled: true
+

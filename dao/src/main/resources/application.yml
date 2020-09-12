@@ -1,5 +1,9 @@
 server:
   port: 8086
+logging:
+  level:
+    root: info
+    com.bootdo: debug
 spring:
   application:
     name: dao
