@@ -2,7 +2,7 @@
 登陆密码:123
 
 技术框架:
-SpringCloud、SpringBoot、SpringSecurity、Jwt、Log4j
+SpringCloud、SpringBoot、Mybatis、SpringSecurity、Jwt、Log4j
 Jquery、Layer、BootStrap
 
 数据库：
