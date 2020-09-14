@@ -14,6 +14,11 @@
  Date: 08/09/2020 21:27:23
 */
 
+CREATE DATABASE IF NOT EXISTS fms default charset utf8 COLLATE utf8_general_ci;
+
+-- 切换数据库
+use fms;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -330,9 +335,10 @@ CREATE TABLE `hf_user`  (
 -- ----------------------------
 -- Records of hf_user
 -- ----------------------------
+INSERT INTO `hf_user` VALUES (1000, 'admin', '$2a$10$mZk8tsXj65Q7wBt62z0vGun68/3xE7rwlACn7tlQEq62H7a2ZcT/m', '1008611', '1008611@qq.com', '', '2020-01-01', '男', '2020-01-01', '2020-01-01', 1, 2, NULL);
 INSERT INTO `hf_user` VALUES (1001, '陈同学', '$2a$10$/dWZWhaaszQQC58CA2cHFOymWUdFrzkiDRwJUn/8s9bbuMXeTIzIC', '185709346478', '2758693093@qq.com', 'ef186700-94c3-4208-a670-0f6b40e59bd0.jpg', '2020-09-05', '男', '2020-5-10', '2020-08-14 22:03', 1, 2, 1);
 INSERT INTO `hf_user` VALUES (1014, 'me', '$2a$10$mZk8tsXj65Q7wBt62z0vGun68/3xE7rwlACn7tlQEq62H7a2ZcT/m', '185709346478', '27586933@qq.com', 'f4cefd5d-90d2-4861-9749-5b3e85c32353.jpg', '2020-07-10', '男', '2020-05-31 16:40', '2020-07-02 22:05', 1, 1, 1);
 INSERT INTO `hf_user` VALUES (1017, 'dany', '$2a$10$wbCoKzU7TDNA5YbECzQP8u8ReHFkk44caXnGvVZ2Fw6JNppueSYNm', '18978945', '27586933@qq.com', 'f15846d0-647f-48bf-99ac-778cf8761e2d.jpg', '2020-07-25', '女', '2020-07-02 20:40', '2020-07-02 22:06', 1, 1, 2);
-INSERT INTO `hf_user` VALUES (1018, '高婷婷', '$2a$10$FYhPwQPGj7b4Pfk9bDBboOOhTRWf9aJqkG2Yg5kvDBixsQmNDjAVW', '13973911733', '999999@qq.com', '922ceb85-9098-4a99-9b80-38202d74168b.jpeg', '2000-10-21', '女', '2020-07-05 19:17', '2020-08-14 22:04', 1, 2, 1);
+INSERT INTO `hf_user` VALUES (1018, '婷婷', '$2a$10$FYhPwQPGj7b4Pfk9bDBboOOhTRWf9aJqkG2Yg5kvDBixsQmNDjAVW', '13973911733', '999999@qq.com', '922ceb85-9098-4a99-9b80-38202d74168b.jpeg', '2000-10-21', '女', '2020-07-05 19:17', '2020-08-14 22:04', 1, 2, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
